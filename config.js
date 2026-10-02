@@ -148,12 +148,12 @@ const BIRTHDAY_CONFIG = {
   thingsINeverSay: [
     {
       heart: "💗",
-      title: "Thank you for staying",
+      title: "",
       desc: "Mujhe pta hai hum long distance mein hain, aur kabhi-kabhi bura lagta hai ki aap mere paas nahi ho. But honestly, distance ne mere feelings kabhi change nahi kiye. Aapki chhoti-chhoti baatein, aapka care karna aur bas aapka hona mere liye bohot matter karta hai. ❤️"
     },
     {
       heart: "💗",
-      title: "I always feel safe with you",
+      title: "",
       desc: "Main har baar express nahi kar pati aur kabhi-kabhi overthink bhi kar leti hu, but ek cheez mujhe hamesha pta hai — mujhe aapse hi pyaar karna hai. Chahe hum kitne bhi door ho, mere liye aap wahi ho… mere favourite person. 🥹❤️"
     },
     {
