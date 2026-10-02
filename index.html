@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 🎉</title>
+  <meta name="description"
+    content="An emotional birthday journey through our memories, laughs, and brotherhood — handcrafted with pure love." />
+
+  <!-- Google Fonts for cinematic & handwritten typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Fullscreen Particle / Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating Ambient Balloons & Hearts in the background -->
+  <div class="ambient-balloons" id="ambientBalloons" aria-hidden="true"></div>
+
+  <!-- Opening Cinematic Screen & Interactive Questions -->
+  <div class="intro-overlay" id="introOverlay">
+
+    <!-- Stage 1: Welcome & Prompt to Start Questionnaire -->
+    <div class="intro-card" id="introCardWelcome">
+      <div class="intro-badge">💌 HANDCRAFTED WITH LOVE FOR YOU 💌</div>
+      <div class="gift-box" id="introGiftBox">
+        <div class="gift-lid">
+          <div class="gift-lid-ribbon"></div>
+          <div class="gift-bow">🎀</div>
+        </div>
+        <div class="gift-box-body">
+          <div class="gift-body-ribbon"></div>
+        </div>
+      </div>
+      <h1 class="intro-title">A Special Story Made With Love</h1>
+      <p class="intro-subtitle">Before you unlock your surprise, there are 4 heartfelt questions waiting for you... ❤️
+      </p>
+      <div class="intro-action-group">
+        <button class="primary-btn glow-pulse" id="startQuestionsBtn">
+          <span>Answer The Questions & Unlock 💖</span>
+        </button>
+
+      </div>
+      <div class="intro-love-footer">
+        <span>✨ Poured with genuine memories, laughs & affection ✨</span>
+      </div>
+    </div>
+
+    <!-- Stage 2: Interactive Heartfelt Questionnaire -->
+    <div class="intro-card intro-quiz-card hidden" id="introCardQuiz">
+      <div class="quiz-top-bar">
+        <span class="quiz-badge" id="quizBadge">QUESTION 01 • THE VIP IDENTITY</span>
+        <div class="quiz-heart-steps" id="quizHeartSteps">
+          <span class="heart-step active">❤️</span>
+          <span class="heart-step">🤍</span>
+          <span class="heart-step">🤍</span>
+          <span class="heart-step">🤍</span>
+        </div>
+      </div>
+
+      <div class="quiz-question-box">
+        <h2 class="quiz-question-text" id="quizQuestionText">Loading question...</h2>
+      </div>
+
+      <div class="quiz-options-grid" id="quizOptionsContainer">
+        <!-- Rendered dynamically from config.js -->
+      </div>
+
+      <div class="quiz-feedback-box hidden" id="quizFeedbackBox">
+        <span class="feedback-emoji" id="feedbackEmoji">🥰</span>
+        <p class="feedback-text" id="feedbackText">Feedback text</p>
+      </div>
+
+      <div class="quiz-footer-actions">
+        <button class="primary-btn glow-pulse hidden" id="quizNextBtn">
+          <span>Next Question ➔</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Stage 3: Unlocked & Gift Opening Reveal -->
+    <div class="intro-card intro-unlocked-card hidden" id="introCardUnlocked">
+      <div class="unlocked-icon">🎉</div>
+      <h2 class="unlocked-title">Surprise Unlocked! 💖</h2>
+      <p class="unlocked-subtitle">Every answer proved what I already knew: you are irreplaceable.</p>
+      <div class="gift-box opened" id="unlockedGiftBox">
+        <div class="gift-lid pop-lid">
+          <div class="gift-lid-ribbon"></div>
+          <div class="gift-bow">🎀</div>
+        </div>
+        <div class="gift-box-body">
+          <div class="gift-body-ribbon"></div>
+          <div class="gift-sparkles-burst">✨💖✨</div>
+        </div>
+      </div>
+      <p class="unlocked-loading-text">Opening your birthday memories now... ✨</p>
+    </div>
+
+  </div> <!-- End #introOverlay -->
+
+  <!-- Main Story Content -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- Top Sticky Bar & Music Player -->
+    <header class="top-nav">
+      <div class="nav-brand">
+        <span class="brand-sparkle">📖</span>
+        <span class="brand-text" id="navTitle">Our Story</span>
+        <span class="love-badge-nav">❤️ Made with Love</span>
+      </div>
+
+      <!-- Quick Chapter Progress Bar / Indicator -->
+      <nav class="story-nav" aria-label="Story Chapters">
+        <a href="#chapter-why" class="nav-dot active" title="1. Why I made this">💌</a>
+        <a href="#chapter-first-convo" class="nav-dot" title="2. Our first conversation">💬</a>
+        <a href="#chapter-first-sight" class="nav-dot" title="3. The first time I saw you">👀</a>
+        <a href="#chapter-memories" class="nav-dot" title="4. The memories we collected">📸</a>
+
+        <a href="#chapter-unsaid" class="nav-dot" title="6. Things I never say enough">🫶</a>
+        <a href="#chapter-love-letter" class="nav-dot" title="Special: Letter from the Heart">💌</a>
+        <a href="#chapter-countdown" class="nav-dot" title="7. A little countdown…">⏳</a>
+        <a href="#chapter-birthday" class="nav-dot" title="8. His birthday + final message">🎂</a>
+        <a href="#chapter-tbc" class="nav-dot" title="9. To be continued…">♾️</a>
+      </nav>
+
+      <div class="nav-actions">
+
+        <button class="sound-toggle-btn" id="soundToggleBtn" title="Toggle Happy Birthday Song">
+          <span class="sound-icon" id="soundIcon">🔇</span>
+          <span class="sound-label" id="soundLabel">Play Birthday Song</span>
+          <div class="sound-waves" id="soundWaves">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hidden Background Audio Player -->
+    <audio id="bgBirthdayAudio" src="happy-birthday.mp3" preload="auto" loop></audio>
+
+    <!-- CHAPTER 1: 💌 Why I made this -->
+    <section class="chapter-section" id="chapter-why">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 01</span>
+          <span class="chapter-tag" id="tagWhy">💌 WHY I MADE THIS</span>
+          <h2 class="chapter-title" id="titleWhy">Why I Made This For You</h2>
+          <p class="chapter-subtitle" id="subtitleWhy">Because ordinary birthday texts just wouldn't do justice to our
+            bond.</p>
+        </div>
+
+        <div class="letter-card why-card">
+          <div class="letter-stamp">
+            <span class="stamp-icon">💌</span>
+            <span class="stamp-text">CHAPTER 1</span>
+          </div>
+          <div class="letter-hand-badge">Handcrafted with pure love ❤️</div>
+          <div class="letter-body" id="contentWhy">
+            <!-- Dynamically populated from config.js -->
+          </div>
+          <div class="quote-box" id="quoteWhy">
+            <!-- Quote from config -->
+          </div>
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-first-convo" class="scroll-arrow-btn">
+            <span>Next: Where It All Started</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 2: 💬 Our first conversation -->
+    <!-- <section class="chapter-section" id="chapter-first-convo">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 02</span>
+          <span class="chapter-tag">💬 NOSTALGIA FLASHBACK</span>
+          <h2 class="chapter-title" id="titleConvo">Where It All Started</h2>
+          <p class="chapter-subtitle" id="subtitleConvo">Neither of us had any clue what this would turn into...</p>
+        </div>
+
+       
+        <div class="chat-device-card">
+          <div class="chat-header">
+            <div class="chat-avatar">👤</div>
+            <div class="chat-user-info">
+              <span class="chat-user-name" id="chatFriendName">Babbyyyy</span>
+              <span class="chat-status">Active now • First Conversation</span>
+            </div>
+          </div>
+          <div class="chat-messages-body" id="chatMessagesContainer">
+            
+          </div>
+          <div class="chat-footer-note" id="chatFooterNote">
+           
+          </div>
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-first-sight" class="scroll-arrow-btn">
+            <span>Next: First Impression</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- CHAPTER 3: 👀 The first time I saw you -->
+    <section class="chapter-section" id="chapter-first-sight">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 02</span>
+          <span class="chapter-tag">👀 FIRST IMPRESSION</span>
+          <h2 class="chapter-title" id="titleFirstSight">The First Time I Saw You</h2>
+          <p class="chapter-subtitle" id="subtitleFirstSight">First impressions are funny looking back...</p>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-photo-wrapper">
+            <div class="polaroid-card spotlight-polaroid" id="firstSightPhotoCard">
+              <div class="polaroid-photo-wrapper">
+                <img src="images/4.jpeg" alt="The First Time We Met" class="polaroid-img" id="spotlightImg" />
+                <div class="polaroid-tape-top"></div>
+              </div>
+              <div class="polaroid-info">
+                <span class="polaroid-date">Chapter 1 of Us 📷</span>
+                <p class="polaroid-caption">Balianwali
+                  27 DECEMBER 2025.</p>
+                <div class="polaroid-hand-note">Where our wild journey quietly began 🥹✨</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="spotlight-text-content">
+            <div class="spotlight-badge" id="spotlightLocation">That First Day</div>
+            <div class="spotlight-story" id="spotlightStory">
+              <!-- Story text from config.js -->
+            </div>
+            <div class="spotlight-contrast-box" id="spotlightFunThought">
+              <!-- Contrast comparison from config.js -->
+            </div>
+          </div>
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-memories" class="scroll-arrow-btn">
+            <span>Next: Memories We Collected</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 4: 📸 The memories we collected -->
+    <section class="chapter-section" id="chapter-memories">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 03</span>
+          <span class="chapter-tag">📸 SCRAPBOOK OF MEMORIES</span>
+          <h2 class="chapter-title">The Memories We Collected</h2>
+          <p class="chapter-subtitle">❤️</p>
+        </div>
+
+        <div class="memories-grid" id="memoriesGrid">
+          <!-- Populated dynamically with sample photos and handwritten notes from config.js -->
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-jokes" class="scroll-arrow-btn">
+            <span>Next: Inside Jokes Only We Get</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 5: 😂 The moments only we understand -->
+    <!-- <section class="chapter-section" id="chapter-jokes">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 05</span>
+          <span class="chapter-tag">😂 CHAOTIC BANTER</span>
+          <h2 class="chapter-title">The Moments Only We Understand</h2>
+          <p class="chapter-subtitle">To anyone else, this makes zero sense. To us, it's peak comedy.</p>
+        </div>
+
+        <div class="jokes-grid" id="jokesGrid">
+         
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-unsaid" class="scroll-arrow-btn">
+            <span>Next: Heart To Heart</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- CHAPTER 6: 🫶 Things I never say enough -->
+    <section class="chapter-section" id="chapter-unsaid">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 04</span>
+          <span class="chapter-tag">🫶 FROM THE CORE</span>
+          <h2 class="chapter-title">Things I Never Say Enough</h2>
+          <p class="chapter-subtitle">Life moves fast and we joke a lot, but this needed to be said.</p>
+        </div>
+
+        <div class="gratitude-grid" id="gratitudeGrid">
+
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-love-letter" class="scroll-arrow-btn">
+            <span>Next: A Sealed Note Made With Love</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 6.5: 💌 A Sealed Letter Made With Love -->
+    <section class="chapter-section love-letter-section" id="chapter-love-letter">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">SPECIAL CHAPTER</span>
+          <span class="chapter-tag pink-tag">💌 MADE WITH LOVE</span>
+          <h2 class="chapter-title" id="loveLetterTitle">A Sealed Letter From The Heart</h2>
+          <p class="chapter-subtitle" id="loveLetterSubtitle">Some feelings are too real for ordinary words. Tap the wax
+            seal to read.</p>
+        </div>
+
+        <!-- 3D Interactive Love Envelope -->
+        <div class="envelope-container" id="envelopeContainer">
+          <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope-back"></div>
+
+            <!-- Letter Sheet that slides up -->
+            <div class="letter-sheet" id="letterSheet">
+              <div class="letter-sheet-inner">
+                <div class="letter-stamp-seal">💌</div>
+                <h3 class="letter-salutation" id="letterSalutation">To Babbyyyy,</h3>
+                <div class="letter-paragraphs" id="letterParagraphs">
+                  <!-- Populated from config.js -->
+                </div>
+                <div class="letter-signature-block">
+                  <p class="letter-sig-note">Handcrafted with infinite love & loyalty,</p>
+                  <p class="letter-sig-name" id="letterSigName">My Day One 💖</p>
+                </div>
+                <button class="secondary-btn btn-sm close-letter-btn" id="closeLetterBtn">
+                  <span>Fold Letter Back ✉️</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Envelope Pocket Front -->
+            <div class="envelope-pocket"></div>
+
+            <!-- Envelope Flap & Wax Seal -->
+            <div class="envelope-flap" id="envelopeFlap">
+              <div class="wax-seal" id="waxSealBtn" title="Click to break the seal and read">
+                <span class="wax-seal-heart">❤️</span>
+                <span class="wax-seal-text">OPEN</span>
+              </div>
+            </div>
+          </div>
+          <p class="envelope-hint" id="envelopeHint">✨ Tap the wax seal to unseal this private birthday letter ✨</p>
+        </div>
+
+        <!-- Interactive "Reasons Why You Are Loved" Widget -->
+        <div class="reasons-loved-card">
+          <div class="reasons-header">
+            <span class="reasons-icon">💖</span>
+            <h3 class="reasons-title">Reminders of How Much You Are Loved</h3>
+            <p class="reasons-desc">Just a little reminder that you are so, so loved❤️
+
+              Even on the days when I don’t say it enough, please remember that you mean a lot to me. I notice you, I
+              appreciate you, and I’m always grateful that you’re a part of my life.
+              You deserve to feel loved, not just today, but every single day❤️:</p>
+          </div>
+          <div class="reason-display-box" id="reasonDisplayBox">
+            <p class="reason-text" id="reasonText">"Your laugh is completely infectious and brightens up every room you
+              enter."</p>
+          </div>
+          <div class="reasons-action">
+            <button class="primary-btn glow-pulse" id="nextReasonBtn">
+              <span>Reveal Another Reason Why You're Loved 💖</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-countdown" class="scroll-arrow-btn">
+            <span>Next: Building The Suspense</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 7: ⏳ A little countdown… -->
+    <section class="chapter-section countdown-chapter" id="chapter-countdown">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 05</span>
+          <span class="chapter-tag" id="countdownTag">⏳ SUSPENSE</span>
+          <h2 class="chapter-title" id="countdownTitle">Wait... what time is it?</h2>
+          <p class="chapter-subtitle" id="countdownSubtitle">We've walked through the memories... now it's time for the
+            real event.</p>
+        </div>
+
+        <div class="countdown-stage-card">
+          <div class="clock-display" id="clockDisplay">
+            <div class="clock-unit">
+              <span class="unit-val" id="countVal">3</span>
+              <span class="unit-lbl">READY?</span>
+            </div>
+          </div>
+          <p class="countdown-prompt-text" id="drumrollText">Tap the drumroll button when you're ready for the main
+            event!</p>
+          <button class="primary-btn glow-pulse drumroll-btn" id="drumrollTriggerBtn">
+            <span>🥁 Drumroll Please! 🥁</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 8: 🎂 His birthday + final message -->
+    <section class="chapter-section birthday-climax-section" id="chapter-birthday">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">CHAPTER 06 • THE GRAND FINALE</span>
+          <span class="chapter-tag gold-tag">🎂 THE BIG MOMENT</span>
+          <h1 class="climax-heading">
+            <span class="climax-pre">HAPPY BIRTHDAY,</span>
+            <span class="climax-name glow-text" id="birthdayName">Babbyyyy!</span>
+          </h1>
+          <p class="chapter-subtitle">Make your secret wish and blow out the candles!</p>
+        </div>
+
+        <!-- Featured Birthday Celebration Memory Photo -->
+        <div class="finale-memory-banner">
+          <div class="polaroid-card finale-polaroid" id="finalePhotoCard">
+            <div class="polaroid-photo-wrapper">
+              <img src="images/6.jpeg" alt="Making the birthday wish" class="polaroid-img" />
+              <div class="polaroid-tape-top"></div>
+            </div>
+            <div class="polaroid-info">
+              <span class="polaroid-date">The Big Moment ✨🎂</span>
+              <p class="polaroid-caption">Surrounded by warmth, smiles, and endless celebration.</p>
+              <div class="polaroid-hand-note">May every dream you carry come true this year! ❤️</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Birthday Cake -->
+        <div class="cake-stage">
+          <div class="interactive-cake" id="cakePlate">
+            <div class="candles-wrapper" id="candlesWrapper">
+              <div class="candle" data-lit="true">
+                <div class="flame"></div>
+                <div class="smoke"></div>
+                <div class="wick"></div>
+                <div class="stick"></div>
+              </div>
+              <div class="candle" data-lit="true">
+                <div class="flame"></div>
+                <div class="smoke"></div>
+                <div class="wick"></div>
+                <div class="stick"></div>
+              </div>
+              <div class="candle" data-lit="true">
+                <div class="flame"></div>
+                <div class="smoke"></div>
+                <div class="wick"></div>
+                <div class="stick"></div>
+              </div>
+            </div>
+
+            <!-- Cake Tier 1 -->
+            <div class="cake-tier tier-top">
+              <div class="frosting-drops">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <!-- Cake Tier 2 -->
+            <div class="cake-tier tier-bottom">
+              <div class="frosting-drops">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <!-- Plate -->
+            <div class="cake-base-plate"></div>
+          </div>
+
+          <!-- Wish Result Banner -->
+          <div class="wish-reveal-box" id="wishRevealBox">
+            <div class="wish-icon">🌟</div>
+            <h3 class="wish-title">WISH GRANTED!</h3>
+            <p class="wish-message" id="wishMessageText">May every candle you blew out bring you 10x more happiness,
+              health, and laughter this year!</p>
+            <button class="secondary-btn btn-sm" id="relightCandlesBtn">Light Candles Again 🔥</button>
+          </div>
+        </div>
+
+        <!-- The Final Birthday Letter -->
+        <!-- <div class="letter-card final-letter-card">
+          <div class="letter-stamp">
+            <span class="stamp-icon">🎂</span>
+            <span class="stamp-text">FINALE</span>
+          </div>
+          <div class="letter-hand-badge">Forever in your corner 💖</div>
+          <div class="letter-body" id="finalLetterContent">
+            
+          </div>
+          <div class="letter-signature">
+            <p class="sign-off">Always in your corner,</p>
+            <p class="sign-name">Your Day One Forever 🥂</p>
+          </div>
+        </div> -->
+
+        <div class="chapter-next-prompt">
+          <a href="#chapter-tbc" class="scroll-arrow-btn">
+            <span>Next: The Closing Outro</span>
+            <span class="arrow-icon">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 9: ♾️ To be continued… -->
+    <section class="chapter-section tbc-section" id="chapter-tbc">
+      <div class="chapter-container">
+        <div class="chapter-header">
+          <span class="chapter-num">EPILOGUE</span>
+          <span class="chapter-tag cyan-tag">♾️ UNWRITTEN PAGES</span>
+          <h2 class="chapter-title" id="tbcTitle">To Be Continued… ♾️</h2>
+          <p class="chapter-subtitle" id="tbcSubtitle">Our story is only just getting started.</p>
+        </div>
+
+        <div class="tbc-card">
+          <div class="infinity-symbol">♾️</div>
+          <p class="tbc-note" id="tbcNote">
+            More love, more memories, more little moments together Always us❤️
+          </p>
+          <div class="tbc-actions">
+            <button class="primary-btn glow-pulse" id="blastConfettiFinaleBtn">
+              🎊 Fire All Confetti Cannons! 🎊
+            </button>
+            <a href="#chapter-why" class="secondary-btn">
+              <span>↺ Read From Chapter 1</span>
+            </a>
+          </div>
+        </div>
+
+        <footer class="story-footer">
+          <p class="footer-love-line">Handcrafted with endless love, late nights, and kind for your special day
+            ❤️</p>
+          <p class="footer-sub-line">Always by your side • Today, tomorrow & forever ✨</p>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Floating Emotion Reactor Bar (Show Emotions Anytime!) -->
+    <div class="emotion-reaction-bar" id="emotionReactionContainer">
+      <div class="emotion-bar-header">
+        <span class="emotion-bar-title">Show Emotion:</span>
+        <button class="emotion-btn" data-emotion="🥹" title="Happy Tears">
+          <span>🥹</span> <span class="emotion-lbl">Tears</span>
+        </button>
+        <button class="emotion-btn" data-emotion="🥰" title="Deep Love">
+          <span>🥰</span> <span class="emotion-lbl">Love</span>
+        </button>
+        <button class="emotion-btn" data-emotion="🤗" title="Warm Hug">
+          <span>🤗</span> <span class="emotion-lbl">Hug</span>
+        </button>
+        <button class="emotion-btn" data-emotion="😂" title="Laugh">
+          <span>😂</span> <span class="emotion-lbl">Laugh</span>
+        </button>
+        <button class="emotion-btn" data-emotion="💖" title="Love Explosion">
+          <span>💖</span> <span class="emotion-lbl">Burst</span>
+        </button>
+      </div>
+      <div class="emotion-counter" id="loveCounterWrapper">
+        <span class="love-heart-pulse">❤️</span>
+        <span class="love-counter-num" id="loveCountDisplay">128</span>
+        <span class="love-counter-label">Loves Given</span>
+      </div>
+    </div>
+
+    <!-- Emotion Toast Notification Popup -->
+    <div class="emotion-toast" id="emotionToast"></div>
+
+    <!-- Floating Action Toolbar (Bottom Right) -->
+    <div class="floating-controls">
+      <button class="fab-btn" id="fabConfettiBtn" title="Launch Confetti">
+        🎉
+      </button>
+    </div>
+
+  </div> <!-- End .main-wrapper -->
+
+  <!-- Lightbox Modal for Photos -->
+  <div class="modal-overlay" id="photoModal">
+    <div class="modal-card photo-modal-card">
+      <button class="modal-close-btn" id="closePhotoModalBtn">&times;</button>
+      <div class="lightbox-img-wrapper" id="lightboxImgWrapper"></div>
+      <h3 class="lightbox-title" id="lightboxTitle"></h3>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+      <div class="lightbox-love-bar">
+        <button class="primary-btn btn-sm" id="lightboxHeartBtn"><span>Send Love to this photo ❤️</span></button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
